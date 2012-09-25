@@ -29,19 +29,33 @@ namespace mongodb_samples
             collection.Insert(p);
 
             p = collection.FindOne();
+			Console.WrileLine();
             Console.WriteLine(p.ToJson());
+			
+			//modificamos el objeto y lo enviamos entero
+			p.Name = "person Name 2";
+			p.Age = 35;
+			p.Chidls[0].Age = 5;
+			
+			collection.Save(p);
+			
+			p = collection.FindOne();
+			Console.WrileLine();
+            Console.WriteLine(p.ToJson());
+			
 
             //le modificamos el nombre
             collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified"));
 
             p = collection.FindOne();
+			Console.WrileLine();
             Console.WriteLine(p.ToJson());
 
-            //le modificamos el nombre
-            collection.Update(Query.EQ("_id", p.Id), Update.PushWrapped("Chidls", new Child { Name = "child 3", Age = 3 }));
-
             //le anyadimos un hijo
+            collection.Update(Query.EQ("_id", p.Id), Update.PushWrapped("Chidls", new Child { Name = "child 3", Age = 3 }));
+            
             p = collection.FindOne();
+			Console.WrileLine();
             Console.WriteLine(p.ToJson());
 
             collection.Drop();
