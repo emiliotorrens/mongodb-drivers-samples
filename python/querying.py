@@ -54,3 +54,5 @@ persons = database.persons.find({'childs.age':5}, fields = ['childs'])
 
 for person in persons:
     print person
+
+database.persons.drop()
