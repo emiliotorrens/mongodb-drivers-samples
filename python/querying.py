@@ -7,11 +7,15 @@ import random
 connection = pymongo.Connection('mongodb://localhost:27017')
 database = connection['testdb']
 
+names = ["Juan", "Antonio", "Pedro", "Maria", "Jordi", "Mario"]
+apellidos = ["Gomez","Perez"]
+
 for id in range(1,100):
 #creamos un objeto persona
-    person = dict(name="Person Name", age= random.randrange(25, 55), childs = [])
-    person['childs'].append(dict(name="child 1",age = random.randrange(1, 12)))
-    person['childs'].append(dict(name="child 2",age = random.randrange(1, 12)))
+    apellido = apellidos[random.randrange(0,1)]
+    person = dict(name= names[random.randrange(0,5)] + " " + apellido, age= random.randrange(25, 55), childs = [])
+    person['childs'].append(dict(name= names[random.randrange(0,5)] + " " + apellido,age = random.randrange(1, 12)))
+    person['childs'].append(dict(name= names[random.randrange(0,5)] + " " + apellido,age = random.randrange(1, 12)))
 
     #lo guardamos
     database.persons.insert(person)
