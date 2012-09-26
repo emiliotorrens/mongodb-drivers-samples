@@ -19,13 +19,16 @@ namespace mongodb_samples
             var collection = database.GetCollection<Person>("persons");
 
             var r = new Random();
+            string[] names = {"Juan", "Antonio", "Pedro", "Maria", "Jordi", "Mario"};
+            string[] apellidos = {"Gomez","Perez"};
             
             for(int i=1; i < 100; i++)
             {
+                string apellido = apellidos[r.Next(0, 1)];
                 //creamos un objeto persona
-                var p = new Person { Age = r.Next(25, 55), Name = "Person Name", Chidls = new List<Child>() };
-                p.Chidls.Add(new Child { Name = "child 1", Age = r.Next(1, 12) });
-                p.Chidls.Add(new Child { Name = "child 2", Age = r.Next(1, 12) });
+                var p = new Person { Age = r.Next(25, 55), Name = names[r.Next(0,4)] + " " + apellido, Childs = new List<Child>() };
+                p.Childs.Add(new Child { Name =  names[r.Next(0,4)] + " " + apellido, Age = r.Next(1, 12) });
+                p.Childs.Add(new Child { Name =  names[r.Next(0,4)] + " " + apellido, Age = r.Next(1, 12) });
 
                 //lo guardamos
                 collection.Insert(p);
@@ -49,6 +52,34 @@ namespace mongodb_samples
             {
                 Console.WriteLine(person.ToJson());
             }
+            
+            Console.WriteLine();
+            Console.WriteLine("Personas con age >= 30 y <= 40 ordenado por age");
+            persons = collection.Find(Query.And(Query.GTE("Age", 30),Query.LTE("Age",40))).SetSortOrder("Age");
+
+            foreach (Person person in persons)
+            {
+                Console.WriteLine(person.ToJson());
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Personas con age = 30 y con child age = 5 ordenado por age");
+            persons = collection.Find(Query.And(Query.EQ("Age", 30), Query.EQ("Childs.Age", 5))).SetSortOrder("Age");
+
+            foreach (Person person in persons)
+            {
+                Console.WriteLine(person.ToJson());
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Personas con Childs age = 5, solo devolvemos el campo childs");
+            persons = collection.Find(Query.EQ("Childs.Age", 5)).SetFields("Childs");
+
+            foreach (Person person in persons)
+            {
+                Console.WriteLine(person.ToJson());
+            }
+
             
             collection.Drop();
         }

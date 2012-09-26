@@ -13,6 +13,6 @@ namespace mongodb_samples
 
         public string Name { get; set; }
         public int Age { get; set; }
-        public List<Child> Chidls { get; set; }
+        public List<Child> Childs { get; set; }
     }
 }
