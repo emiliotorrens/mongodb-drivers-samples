@@ -5,6 +5,7 @@ import pymongo
 #creamos la conexion y seleccionamos la base de datos
 connection = pymongo.Connection('mongodb://localhost:27017')
 database = connection['testdb']
+database.persons.drop()
 
 #creamos un objeto persona
 person = dict(name="Person Name", age=25, childs = [])
@@ -39,5 +40,5 @@ person = database.persons.find_one()
 
 print person
 
-database.persons.drop()
+
 

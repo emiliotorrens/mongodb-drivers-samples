@@ -6,6 +6,7 @@ import random
 #creamos la conexion y seleccionamos la base de datos
 connection = pymongo.Connection('mongodb://localhost:27017')
 database = connection['testdb']
+database.persons.drop()
 
 names = ["Juan", "Antonio", "Pedro", "Maria", "Jordi", "Mario"]
 apellidos = ["Gomez","Perez"]
@@ -55,4 +56,3 @@ persons = database.persons.find({'childs.age':5}, fields = ['childs'])
 for person in persons:
     print person
 
-database.persons.drop()
