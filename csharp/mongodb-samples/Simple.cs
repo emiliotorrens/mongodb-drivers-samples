@@ -19,6 +19,7 @@ namespace mongodb_samples
             var server = MongoServer.Create("mongodb://localhost:27017");
             var database = server.GetDatabase("testdb");
             var collection = database.GetCollection<Person>("persons");
+            collection.RemoveAll();
 
             //creamos un objeto persona
             var p = new Person {Age = 25, Name = "person Name", Childs = new List<Child>()};
@@ -30,7 +31,7 @@ namespace mongodb_samples
 
             p = collection.FindOne();
             Console.WriteLine();
-            Console.WriteLine(p.ToJson());
+            Console.WriteLine(p.ToJson());            
 			
 			//modificamos el objeto y lo enviamos entero
 			p.Name = "person Name 2";
@@ -41,25 +42,22 @@ namespace mongodb_samples
 			
 			p = collection.FindOne();
             Console.WriteLine();
-            Console.WriteLine(p.ToJson());
+            Console.WriteLine(p.ToJson());            
 			
-
             //le modificamos el nombre
             collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified"));
 
             p = collection.FindOne();
             Console.WriteLine();
-            Console.WriteLine(p.ToJson());
+            Console.WriteLine(p.ToJson());            
 
             //le anyadimos un hijo
             collection.Update(Query.EQ("_id", p.Id), Update.PushWrapped("Childs", new Child { Name = "child 3", Age = 3 }));
             
             p = collection.FindOne();
             Console.WriteLine();
-            Console.WriteLine(p.ToJson());
-
-            collection.Drop();
-
+            Console.WriteLine(p.ToJson());            
+            
 
         }
     }

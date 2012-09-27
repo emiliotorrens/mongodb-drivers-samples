@@ -17,6 +17,7 @@ namespace mongodb_samples
             var server = MongoServer.Create("mongodb://localhost:27017");
             var database = server.GetDatabase("testdb");
             var collection = database.GetCollection<Person>("persons");
+            collection.RemoveAll();
 
             var r = new Random();
             string[] names = {"Juan", "Antonio", "Pedro", "Maria", "Jordi", "Mario"};
@@ -79,9 +80,7 @@ namespace mongodb_samples
             {
                 Console.WriteLine(person.ToJson());
             }
-
             
-            collection.Drop();
         }
     }
 }
