@@ -46,9 +46,9 @@ namespace mongodb_samples
                }
             };
 
-            var resultSum = collection.Aggregate(operations);
+            var result = collection.Aggregate(operations);
 
-            foreach (var document in resultSum.ResultDocuments)
+            foreach (var document in result.ResultDocuments)
             {
                 Console.WriteLine(document.ToJson());
             }
@@ -64,9 +64,9 @@ namespace mongodb_samples
                }
             };
 
-            resultSum = collection.Aggregate(operations);
+            result = collection.Aggregate(operations);
 
-            foreach (var document in resultSum.ResultDocuments)
+            foreach (var document in result.ResultDocuments)
             {
                 Console.WriteLine(document.ToJson());
             }
@@ -85,9 +85,9 @@ namespace mongodb_samples
                }               
             };
 
-            resultSum = collection.Aggregate(operations);
+            result = collection.Aggregate(operations);
 
-            foreach (var document in resultSum.ResultDocuments)
+            foreach (var document in result.ResultDocuments)
             {
                 Console.WriteLine(document.ToJson());
             }
