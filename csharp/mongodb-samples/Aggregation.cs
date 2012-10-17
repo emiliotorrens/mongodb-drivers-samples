@@ -73,14 +73,14 @@ namespace mongodb_samples
 
 
             Console.WriteLine();
-            Console.WriteLine("Años Sumados y las edades unicas de los que se llaman Juan Gomez");
+            Console.WriteLine("Cuandos hay y las edades unicas de los que se llaman Juan Gomez");
 
             operations = new[]{
                 new BsonDocument("$match" , new BsonDocument( "Name" , "Juan Gomez" )), 
                 new BsonDocument {
                 {
-                    "$group", new BsonDocument{ { "_id" , "$Name" } , {"Total" , new BsonDocument{ {"$sum","$Age"} } },
-                              new BsonDocument("Ages" , new BsonDocument( "$addToSet" , "$Age" )) }
+                    "$group", new BsonDocument{ { "_id" , "$Name" } , {"Total" , new BsonDocument{ {"$sum",1} } },
+                              new BsonDocument("DistincAges" , new BsonDocument( "$addToSet" , "$Age" )) }
                 }               
                }               
             };
