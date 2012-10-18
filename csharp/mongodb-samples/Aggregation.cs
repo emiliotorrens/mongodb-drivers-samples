@@ -73,7 +73,7 @@ namespace mongodb_samples
 
 
             Console.WriteLine();
-            Console.WriteLine("Cuantos hay y las edades unicas de los que se llaman Juan Gomez mayores de 40");
+            Console.WriteLine("Cuantos hay y las edades unicas con edad >=40 y con hijos edad >= 4");
 
             string nameFilter = "Juan Gomez";
             
@@ -81,9 +81,9 @@ namespace mongodb_samples
                 new BsonDocument{
                     {
                         "$match" , new BsonDocument
-                                       {
-                                           {"Name" , nameFilter }, 
+                                       {                                           
                                            {"Age" , new BsonDocument{ {"$gte" , 40} } },
+                                           {"Childs.Age" , new BsonDocument{ {"$gte" , 4} } }
                                        }
                     } 
                 }, 
@@ -92,7 +92,14 @@ namespace mongodb_samples
                     "$group", new BsonDocument{ { "_id" , "$Name" } , {"Total" , new BsonDocument{ {"$sum",1} } },
                               new BsonDocument("UniqueAges" , new BsonDocument( "$addToSet" , "$Age" )) }
                 }               
-               }               
+               },               
+                new BsonDocument("$sort" , new BsonDocument( "Total" , -1 )),    
+                new BsonDocument{
+                    {
+                        "$project", new BsonDocument{ {"_id",1}, {"Total",1},{"UniqueAges",1} }
+                    }            
+                }
+                //new BsonDocument("$unwind" , "$UniqueAges")
             };
 
             result = collection.Aggregate(operations);

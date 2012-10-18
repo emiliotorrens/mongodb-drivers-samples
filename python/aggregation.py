@@ -51,17 +51,20 @@ for result in results['result']:
     print result
 
 print ''
-print 'Cuantos hay y las edades unicas de los que se llaman Juan Gomez mayores de 40'
+print 'Cuantos hay y las edades unicas de los que se llaman Juan Gomez con edad >=40 y con hijos edad >= 3'
 
 operation  =\
 [
     {
-        '$match': {'name':'Juan Gomez','age':{'$gte': 40}}
+        '$match': {'age':{'$gte': 35},'childs.age':{'$gte': 4}}
     },
-    {'$group': {
+    { '$group': {
         '_id': '$name',
         'total': { '$sum': 1 },
-        'unique_ages': {'$addToSet': '$age'}} }
+        'unique_ages': {'$addToSet': '$age'}} },
+    { '$sort': { 'total': -1 } },
+    { '$project' : { '_id' : 1, 'total' : 1, 'unique_ages' :1 } },
+    #{ '$unwind' : '$unique_ages' }
 ]
 
 results = database.command('aggregate', 'persons', pipeline= operation)
