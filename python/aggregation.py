@@ -55,15 +55,14 @@ print 'Cuantos hay y las edades unicas de los que se llaman Juan Gomez con edad 
 
 operation  =\
 [
-    {
-        '$match': {'age':{'$gte': 35},'childs.age':{'$gte': 4}}
-    },
+    { '$match': {'age':{'$gte': 35},'childs.age':{'$gte': 4}} },
     { '$group': {
         '_id': '$name',
         'total': { '$sum': 1 },
         'unique_ages': {'$addToSet': '$age'}} },
     { '$sort': { 'total': -1 } },
     { '$project' : { '_id' : 1, 'total' : 1, 'unique_ages' :1 } },
+    { '$match': { 'total': {'$gt': 10} }},
     #{ '$unwind' : '$unique_ages' }
 ]
 

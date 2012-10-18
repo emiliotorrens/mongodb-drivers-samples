@@ -98,7 +98,8 @@ namespace mongodb_samples
                     {
                         "$project", new BsonDocument{ {"_id",1}, {"Total",1},{"UniqueAges",1} }
                     }            
-                }
+                },
+                new BsonDocument("$match" , new BsonDocument( "Total" , new BsonDocument{ {"$gte" , 10} } )),
                 //new BsonDocument("$unwind" , "$UniqueAges")
             };
 
