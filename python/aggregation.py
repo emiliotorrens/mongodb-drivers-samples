@@ -12,7 +12,7 @@ names = ["Juan", "Antonio", "Pedro", "Maria", "Jordi", "Mario"]
 apellidos = ["Gomez","Perez"]
 
 for id in range(1,100):
-#creamos un objeto persona
+    #creamos un objeto persona
     apellido = apellidos[random.randrange(0,1)]
     person = dict(name= names[random.randrange(0,5)] + " " + apellido, age= random.randrange(25, 55), childs = [])
     person['childs'].append(dict(name= names[random.randrange(0,5)] + " " + apellido,age = random.randrange(1, 12)))
