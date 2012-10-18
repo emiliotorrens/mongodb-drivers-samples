@@ -14,5 +14,6 @@ namespace mongodb_samples
         public string Name { get; set; }
         public int Age { get; set; }
         public List<Child> Childs { get; set; }
+        public List<string> Tags { get; set; } 
     }
 }

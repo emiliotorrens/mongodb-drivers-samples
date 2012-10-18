@@ -28,7 +28,7 @@ namespace mongodb_samples
             {
                 string apellido = apellidos[r.Next(0, 1)];
                 //creamos un objeto persona
-                var p = new Person { Age = r.Next(25, 55), Name = names[r.Next(0, 4)] + " " + apellido, Childs = new List<Child>() };
+                var p = new Person { Age = r.Next(25, 55), Name = names[r.Next(0, 4)] + " " + apellido, Childs = new List<Child>(), Tags = new List<string>() {"A","B"}};
                 p.Childs.Add(new Child { Name = names[r.Next(0, 4)] + " " + apellido, Age = r.Next(1, 12) });
                 p.Childs.Add(new Child { Name = names[r.Next(0, 4)] + " " + apellido, Age = r.Next(1, 12) });
 
@@ -73,14 +73,24 @@ namespace mongodb_samples
 
 
             Console.WriteLine();
-            Console.WriteLine("Cuandos hay y las edades unicas de los que se llaman Juan Gomez");
+            Console.WriteLine("Cuantos hay y las edades unicas de los que se llaman Juan Gomez mayores de 40");
 
+            string nameFilter = "Juan Gomez";
+            
             operations = new[]{
-                new BsonDocument("$match" , new BsonDocument( "Name" , "Juan Gomez" )), 
+                new BsonDocument{
+                    {
+                        "$match" , new BsonDocument
+                                       {
+                                           {"Name" , nameFilter }, 
+                                           {"Age" , new BsonDocument{ {"$gte" , 40} } },
+                                       }
+                    } 
+                }, 
                 new BsonDocument {
                 {
                     "$group", new BsonDocument{ { "_id" , "$Name" } , {"Total" , new BsonDocument{ {"$sum",1} } },
-                              new BsonDocument("DistincAges" , new BsonDocument( "$addToSet" , "$Age" )) }
+                              new BsonDocument("UniqueAges" , new BsonDocument( "$addToSet" , "$Age" )) }
                 }               
                }               
             };
