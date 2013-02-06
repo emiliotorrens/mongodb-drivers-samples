@@ -38,4 +38,10 @@ namespace mongodb_samples
             this.ChidlsCount = this.Childs == null ? 0 : this.Childs.Count;
         }
     }
+
+    public class Child
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
 }
