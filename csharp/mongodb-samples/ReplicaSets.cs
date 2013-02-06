@@ -12,8 +12,10 @@ namespace mongodb_samples
     {
         [Test]
         public void Test()
-        {
-            var server = MongoServer.Create("mongodb://192.168.1.218/?replicaSet=devSet;connect=automatic");
+        {            
+             //creamos la conexion y seleccionamos la base de datos
+            var client = new MongoClient("mongodb://192.168.1.218/?replicaSet=devSet;connect=automatic");
+            var server = client.GetServer();
             server.Connect();
             Assert.AreEqual(3,server.Instances.Count());            
 
@@ -23,7 +25,6 @@ namespace mongodb_samples
             var database = server.GetDatabase("testdb");
             var collection = database.GetCollection<Person>("persons");
             collection.RemoveAll();
-
 
         }
     }

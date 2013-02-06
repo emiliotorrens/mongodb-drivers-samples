@@ -70,3 +70,4 @@ results = database.command('aggregate', 'persons', pipeline= operation)
 
 for result in results['result']:
     print result
+

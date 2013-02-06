@@ -16,7 +16,8 @@ namespace mongodb_samples
         public void Test()
         {
             //creamos la conexion y seleccionamos la base de datos
-            var server = MongoServer.Create("mongodb://localhost:27017");
+            var client = new MongoClient("mongodb://localhost:27017");
+            var server = client.GetServer();
             var database = server.GetDatabase("testdb");
             var collection = database.GetCollection<Person>("persons");
             collection.RemoveAll();
