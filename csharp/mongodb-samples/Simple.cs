@@ -45,13 +45,13 @@ namespace mongodb_samples
             Console.WriteLine(p.ToJson());
 
             //le modificamos el nombre y la edad
-            collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified").Set("Age", 35));
+            collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified").Inc("Age", 1));
 
             p = collection.FindOne();
             Console.WriteLine();
             Console.WriteLine(p.ToJson());
 
-            //le anyadimos un hijo a los que tengan 36 años
+            //le anyadimos un hijo a los que tengan 37 años
             collection.Update(Query.EQ("Age", 36), Update.PushWrapped("Childs", new Child {Name = "child 3", Age = 3}),
                               UpdateFlags.Multi);
 
