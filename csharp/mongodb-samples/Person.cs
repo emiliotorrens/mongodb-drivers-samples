@@ -14,6 +14,16 @@ namespace mongodb_samples
         public string Name { get; set; }
         public int Age { get; set; }
         public List<Child> Childs { get; set; }
-        public List<string> Tags { get; set; } 
+        public List<string> Tags { get; set; }
+
+        public bool ShouldSerializeTags()
+        {
+            return (Tags != null && Tags.Count != 0);
+        }
+
+        [BsonExtraElements]
+        public BsonDocument ExtraFields { get; set; }
+
+
     }
 }

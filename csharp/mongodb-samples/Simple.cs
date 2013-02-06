@@ -24,9 +24,9 @@ namespace mongodb_samples
             var p = new Person {Age = 25, Name = "person Name", Childs = new List<Child>()};
             p.Childs.Add(new Child {Name = "child 1", Age = 12});
             p.Childs.Add(new Child {Name = "child 2", Age = 16});
-
+           
             //lo guardamos
-            collection.Insert(p);
+            collection.Save(p);
 
             p = collection.FindOne();
             Console.WriteLine();
@@ -35,6 +35,7 @@ namespace mongodb_samples
             //modificamos el objeto y lo enviamos entero
             p.Name = "person Name 2";
             p.Age = 35;
+            p.Tags = new List<string>() {"A","B"};
             p.Childs[0].Age = 5;
 
             collection.Save(p);
@@ -43,15 +44,15 @@ namespace mongodb_samples
             Console.WriteLine();
             Console.WriteLine(p.ToJson());
 
-            //le modificamos el nombre
-            collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified"));
+            //le modificamos el nombre y la edad
+            collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified").Set("Age", 35));
 
             p = collection.FindOne();
             Console.WriteLine();
             Console.WriteLine(p.ToJson());
 
-            //le anyadimos un hijo
-            collection.Update(Query.EQ("Age", 35), Update.PushWrapped("Childs", new Child {Name = "child 3", Age = 3}),
+            //le anyadimos un hijo a los que tengan 36 años
+            collection.Update(Query.EQ("Age", 36), Update.PushWrapped("Childs", new Child {Name = "child 3", Age = 3}),
                               UpdateFlags.Multi);
 
             p = collection.FindOne();
