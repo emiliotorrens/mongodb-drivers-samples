@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using NUnit.Framework;
 
 namespace mongodb_samples
@@ -64,7 +65,7 @@ namespace mongodb_samples
                 }
                }
             };
-
+            
             result = collection.Aggregate(operations);
 
             foreach (var document in result.ResultDocuments)
