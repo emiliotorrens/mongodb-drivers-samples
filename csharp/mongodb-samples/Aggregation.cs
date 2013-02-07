@@ -22,6 +22,7 @@ namespace mongodb_samples
             var collection = database.GetCollection<Person>("persons");
             collection.RemoveAll();
 
+            //Creamos datos
             var r = new Random();
             string[] names = { "Juan", "Antonio", "Pedro", "Maria", "Jordi", "Mario" };
             string[] apellidos = { "Gomez", "Perez" };
