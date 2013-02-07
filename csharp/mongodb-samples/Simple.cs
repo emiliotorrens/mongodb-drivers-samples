@@ -26,7 +26,8 @@ namespace mongodb_samples
             p.Childs.Add(new Child {Name = "child 2", Age = 16});
            
             //lo guardamos
-            collection.Save(p);
+            var result = collection.Save(p);
+            if (result.HasLastErrorMessage) throw new Exception(result.ErrorMessage);
 
             p = collection.FindOne();
             Console.WriteLine();
@@ -38,14 +39,15 @@ namespace mongodb_samples
             p.Tags = new List<string>() {"A","B"};
             p.Childs[0].Age = 5;
 
-            collection.Save(p);
+            result = collection.Save(p);
+            if (result.HasLastErrorMessage) throw new Exception(result.ErrorMessage);
 
             p = collection.FindOne();
             Console.WriteLine();
             Console.WriteLine(p.ToJson());
 
             //le modificamos el nombre y la edad
-            collection.Update(Query.EQ("_id", p.Id), Update.Set("Name", "Name Modified").Inc("Age", 1));
+            collection.Update(Query.EQ("_id", p.Id), Update<Person>.Set(x=>x.Name, "Name2").Inc(x=>x.Age, 1));
 
             p = collection.FindOne();
             Console.WriteLine();

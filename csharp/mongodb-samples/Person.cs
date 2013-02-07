@@ -27,7 +27,7 @@ namespace mongodb_samples
         }
 
         [BsonExtraElements]
-        public BsonDocument ExtraFields { get; set; }
+        public IDictionary<string, object> ExtraFields { get; set; }
 
         [BsonIgnore]
         public int ChidlsCount { get; private set; }
