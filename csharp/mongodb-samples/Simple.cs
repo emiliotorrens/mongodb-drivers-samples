@@ -21,7 +21,7 @@ namespace mongodb_samples
             collection.RemoveAll();
 
             //creamos un objeto persona
-            var p = new Person {Age = 25, Name = "person Name", Childs = new List<Child>()};
+            var p = new Person {Age = 25, Name = "person Name", Cars=1,Childs = new List<Child>()};
             p.Childs.Add(new Child {Name = "child 1", Age = 12});
             p.Childs.Add(new Child {Name = "child 2", Age = 16});
            

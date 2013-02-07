@@ -17,6 +17,10 @@ namespace mongodb_samples
         public List<Child> Childs { get; set; }
         public List<string> Tags { get; set; }
 
+        [BsonDefaultValue(1)]
+        [BsonIgnoreIfDefault]
+        public int Cars { get; set; }
+
         public bool ShouldSerializeTags()
         {
             return (Tags != null && Tags.Count != 0);

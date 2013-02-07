@@ -52,7 +52,7 @@ namespace mongodb_samples
             Console.WriteLine();
             Console.WriteLine("Personas con age = 25 sin key");
             
-            persons = collection.Find(Query.EQ("Age", 25));
+            persons = collection.Find(Query<Person>.EQ(p=>p.Age, 25));
             Console.WriteLine("Explain: " + persons.Explain().ToJson());
             foreach (Person person in persons)
             {
