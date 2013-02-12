@@ -3,31 +3,8 @@ __author__ = 'emilio.torrens'
 import pymongo
 from bson.code import Code
 
-#creamos la conexion y seleccionamos la base de datos
 connection = pymongo.Connection('mongodb://localhost:27017')
-#database = connection['students']
-#
-#ids = database.grades.distinct('student_id')
-#
-#for id in ids:
-#    docs = database.grades.find({'student_id':id,'type':'homework'}).sort('score',1)
-#    database.grades.remove(docs[0])
-
 database = connection['test']
-
-#operation  =\
-#[
-#    {'$group': {
-#        '_id': '$state',
-#        'total': { '$sum': 1 } } },
-#    { '$sort': { 'total': -1 } }
-#]
-#
-#results = database.command('aggregate', 'zips', pipeline= operation)
-#
-#for result in results['result']:
-#    print result
-
 
 map =   Code('function map_closest() {'
             'var pitt = [-80.064879, 40.612044];'
