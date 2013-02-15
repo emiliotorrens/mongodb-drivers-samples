@@ -1,7 +1,7 @@
 __author__ = 'emilio.torrens'
 
 import pymongo
-connection = pymongo.Connection('mongodb://192.168.1.218:27017')
+connection = pymongo.Connection('mongodb://127.0.0.1')
 database = connection['CloudManager_Dev']
 
 operation  =\
