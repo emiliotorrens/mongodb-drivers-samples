@@ -3,7 +3,6 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
-import os.path
 from pymongo import MongoClient
 from bson import json_util
 import json
@@ -37,9 +36,11 @@ class handler(tornado.web.RequestHandler):
     def put(self, database, collection):
         db = connection[database]
         col = db[collection]
+
         data = eval(self.request.body)
         id = col.insert(data)
         result = col.find({'_id': ObjectId(id)})
+
         self.set_header("Content-Type", "application/json")
         self.write(json.dumps(list(result), sort_keys=True, indent=4, default=json_util.default))
         self.finish()
@@ -55,6 +56,7 @@ class handler_by_id(tornado.web.RequestHandler):
 
         db = connection[database]
         col = db[collection]
+
         result = col.find({'_id': ObjectId(id)})
 
         self.set_header("Content-Type", "application/json")
@@ -69,9 +71,11 @@ class handler_by_id(tornado.web.RequestHandler):
 
         db = connection[database]
         col = db[collection]
+
         data = eval(self.request.body)
         col.update({'_id': ObjectId(id)}, data)
         result = col.find({'_id': ObjectId(id)})
+
         self.set_header("Content-Type", "application/json")
         self.write(json.dumps(list(result), sort_keys=True, indent=4, default=json_util.default))
         self.finish()
@@ -84,6 +88,7 @@ class handler_by_id(tornado.web.RequestHandler):
 
         db = connection[database]
         col = db[collection]
+
         col.remove({'_id': ObjectId(id)})
         self.finish()
 
