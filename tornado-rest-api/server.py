@@ -101,7 +101,6 @@ if __name__ == "__main__":
             (r"/(.+)/(.+)/", handler), (r"/(.+)/(.+)", handler),
         ],
         gzip=True,
-        #template_path=os.path.join(os.path.dirname(__file__), "templates")
     )
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
