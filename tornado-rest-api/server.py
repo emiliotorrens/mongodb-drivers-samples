@@ -49,6 +49,10 @@ class handler_by_id(tornado.web.RequestHandler):
 
     #find by _id
     def get(self, database, collection, id):
+
+        if id is None:
+            raise tornado.web.HTTPError(404)
+
         db = connection[database]
         col = db[collection]
         result = col.find({'_id': ObjectId(id)})
@@ -59,6 +63,10 @@ class handler_by_id(tornado.web.RequestHandler):
 
     #update
     def put(self, database, collection, id):
+
+        if id is None:
+            raise tornado.web.HTTPError(404)
+
         db = connection[database]
         col = db[collection]
         data = eval(self.request.body)
@@ -70,6 +78,10 @@ class handler_by_id(tornado.web.RequestHandler):
 
    #delete
     def delete(self, database, collection, id):
+
+        if id is None:
+            raise tornado.web.HTTPError(404)
+
         db = connection[database]
         col = db[collection]
         col.remove({'_id': ObjectId(id)})
