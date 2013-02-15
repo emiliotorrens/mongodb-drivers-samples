@@ -93,7 +93,7 @@ if __name__ == "__main__":
     app = tornado.web.Application(
         handlers=[
             (r"/(.+)/(.+)/(.+)", handler_by_id),
-            (r"/(.+)/(.+)", handler),
+            (r"/(.+)/(.+)/", handler), (r"/(.+)/(.+)", handler),
         ],
         gzip=True,
         #template_path=os.path.join(os.path.dirname(__file__), "templates")
